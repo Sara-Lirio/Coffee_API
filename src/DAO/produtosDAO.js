@@ -64,6 +64,24 @@ const daoProdutos = {
             })
         })
     },
+
+    atualizaProduto : (idProduto, novoDado)=> {
+        const ATUALIZA_PRODUTO = `
+        UPDATE PRODUTOS 
+        SET nomeProduto = ?, imagem = ?, descricao = ?, valor = ?, adicional = ?,
+        WHERE idProduto = ?
+        `
+        return new Promise((resolve, reject)=> {
+            db.run(ATUALIZA_PRODUTO, novoDado.nomeProduto, novoDado.imagem, novoDado.descricao, novoDado.valor, novoDado.adicional,
+            idProduto, (error)=>{
+                if (error)
+                    reject(error)
+                else
+                    resolve(novoDado)
+            })
+        })
+    },
+
 }
 
 export default daoProdutos
