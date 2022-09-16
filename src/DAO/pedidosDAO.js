@@ -44,6 +44,21 @@ const daoPedidos = {
         })
     },
 
+    pegaPedidoPeloId : (id)=> {
+        const PEGA_PEDIDO_ID = `
+        SELECT * FROM PEDIDOS
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject)=> {
+            db.get(PEGA_PEDIDO_ID, id, (error, row)=> {
+                if (error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
+
 }
 
 export default daoPedidos
