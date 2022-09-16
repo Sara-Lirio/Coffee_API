@@ -82,6 +82,20 @@ const daoProdutos = {
         })
     },
 
+    removeProduto : (idProduto) => {
+        const DELETA_PRODUTO = `
+        DELETE FROM PRODUTOS 
+        WHERE idProduto = ?
+        `
+        return new Promise ((resolve, reject) => {
+            db.run(DELETA_PRODUTO, idProduto, (error, row)=> {
+                if (error)
+                    reject (error)
+                else
+                    resolve (row)
+            })
+        })
+    },
 }
 
 export default daoProdutos
