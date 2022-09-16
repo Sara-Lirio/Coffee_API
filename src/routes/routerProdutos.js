@@ -1,4 +1,4 @@
-import produtosController from "../controller/produtosController"
+import produtosController from "../controller/produtosController.js"
 
 const routerProdutos = (app)=> {
 
