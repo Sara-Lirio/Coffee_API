@@ -3,20 +3,20 @@ class Pedido {
 
     inserirPedido = async (dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido) => {
         try {
-          const pedido = this.criaPedido(dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido);
-          if (pedido == false) throw error;
-          const data = await dao.inserePedido(pedido);
-          return {
-            dados: data,
-            status: 200,  
-          };
+            const pedido = this.criaPedido(dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido);
+            if (pedido == false) throw error;
+            const data = await dao.inserePedido(pedido);
+            return {
+                dados: data,
+                status: 200,
+            };
         } catch (error) {
-          return {
-            mensagem: error.message,
-            status: 400,
-          };
+            return {
+                mensagem: error.message,
+                status: 400,
+            };
         }
-      };
+    };
 
     buscarTodosPedidos = async () => {
         try {
@@ -100,6 +100,56 @@ class Pedido {
         }
     };
 
+    atualizarPedido = async (id, dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido) => {
+        try {
+            const novoPedido = this.criaPedido(
+                dataPedido,
+                nomeCliente,
+                cpfCliente,
+                formaDeEntrega,
+                valorTotal,
+                statusPagamento,
+                statusPedido
+            );
+            const pedidoAtual = await this.buscarPedidoId(id);
+            if (pedidoAtual) {
+                const pedidoAtualizado = {
+                    dataPedido: novoPedido.dataPedido || pedidoAtual.dados.dataPedido,
+                    nomeCliente: novoPedido.nomeCliente || pedidoAtual.dados.nomeCliente,
+                    cpfCliente: novoPedido.cpfCliente || pedidoAtual.dados.cpfCliente,
+                    formaDeEntrega: novoPedido.formaDeEntrega || pedidoAtual.dados.formaDeEntrega,
+                    valorTotal: novoPedido.valorTotal || pedidoAtual.dados.valorTotal,
+                    statusPagamento: novoPedido.statusPagamento || pedidoAtual.dados.statusPagamento,
+                    statusPedido: novoPedido.statusPedido || pedidoAtual.dados.statusPedido
+                };
+                const data = await dao.atualizarPedido(id, pedidoAtualizado);
+                return {
+                    dados: data,
+                    status: 200,
+                };
+            } else {
+                throw new Error('Pedido não encontrado');
+            }
+        } catch (error) {
+            return {
+                mensagem: error.message,
+                status: 400,
+            };
+        }
+    };
+
+    criaPedido = (dataPedido, nomeCliente, cpfCliente, formaDeEntrega,
+        valorTotal, statusPagamento, statusPedido) => {
+        return {
+            dataPedido: dataPedido,
+            nomeCliente: nomeCliente,
+            cpfCliente: cpfCliente,
+            formaDeEntrega: formaDeEntrega,
+            valorTotal: valorTotal,
+            statusPagamento: statusPagamento,
+            statusPedido: statusPedido
+        };
+    };
 }
 
 export default Pedido
