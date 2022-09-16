@@ -89,6 +89,33 @@ const produtosController = {
             });
         }
     },
+
+    atualizaProduto: async (req, res) => {
+        const idProduto = req.params.idProduto;
+        const body = req.body;
+        try {
+            const resposta = await modelProdutos.atualizaProduto(
+                idProduto,
+                body.nomeProduto,
+                body.imagem,
+                body.descricao,
+                body.valor,
+                body.adicional
+            );
+
+            if (resposta.status !== 200) throw resposta;
+            res.status(resposta.status).json({
+                msg: 'O produto foi atualizado com sucesso',
+                produto: resposta.dados,
+                erro: false,
+            });
+        } catch (error) {
+            res.status(400).json({
+                msg: error.mensagem,
+                erro: true,
+            });
+        }
+    },
 }
 
 export default produtosController
