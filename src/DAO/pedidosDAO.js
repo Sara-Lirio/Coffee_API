@@ -14,6 +14,21 @@ const daoPedidos = {
         })
     },
 
+    pegaPedidoPelaData: (dataPedido) => {
+        const PEGA_PEDIDO_DATA = `
+        SELECT * FROM PEDIDOS 
+        WHERE dataPedido = ?
+        `
+        return new Promise((resolve, reject) => {
+            db.get(PEGA_PEDIDO_DATA, dataPedido, (error, row) => {
+                if (error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    },
+
     pegaPedidoPeloNome: (nomeCliente) => {
         const PEGA_PEDIDO_NOME = `
         SELECT * FROM PEDIDOS 
