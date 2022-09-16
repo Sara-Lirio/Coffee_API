@@ -151,6 +151,35 @@ const pedidoController = {
         }
       },
 
+      atualizaPedido: async (req, res) => {
+        const id = req.params.id;
+        const body = req.body;
+    
+        try {
+          const pedidoAtualizado = await modelPedido.atualizarPedido(
+            id,
+            body.dataPedido,
+            body.nomeCliente, 
+            body.cpfCliente,
+            body.formaDeEntrega, 
+            body.valorTotal,
+            body.statusPagamento,
+            body.statusPedido
+          );
+          if (pedidoAtualizado.status != 200) throw pedidoAtualizado;
+          res.status(pedidoAtualizado.status).json({
+            msg: 'Pedido atualizado com sucesso',
+            pedido: pedidoAtualizado.dados,
+            erro: false,
+          });
+        } catch (error) {
+          res.status(error.status).json({
+            msg: error.mensagem,
+            erro: true,
+          });
+        }
+      },
+
       deletaPedido: async (req, res) => {
         const pedido = req.params.id;
         try {
@@ -169,7 +198,6 @@ const pedidoController = {
           });
         }
       },
-    
 }
 
 export default pedidoController
