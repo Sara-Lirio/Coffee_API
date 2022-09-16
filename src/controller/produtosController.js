@@ -116,6 +116,26 @@ const produtosController = {
             });
         }
     },
+
+    removeProduto: async (req, res) => {
+        const idProduto = req.params.idProduto;
+        try {
+          await ProdutosValidacao._validaDeletaProdutos(
+            idProduto,
+            modelProdutos.removeProduto,
+          );
+    
+          res.json({
+            msg: 'Produto deletado com sucesso',
+            erro: false,
+          });
+        } catch (error) {
+          res.status(400).json({
+            msg: error.message,
+            erro: true,
+          });
+        }
+      }
 }
 
 export default produtosController
