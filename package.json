@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/Sara-Lirio/Coffee_API/issues"
   },
-  "homepage": "https://github.com/Sara-Lirio/Coffee_API#readme"
+  "homepage": "https://github.com/Sara-Lirio/Coffee_API#readme",
+  "dependencies": {
+    "node-fetch": "^3.2.10"
+  }
 }
