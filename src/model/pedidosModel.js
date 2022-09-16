@@ -150,6 +150,21 @@ class Pedido {
             statusPedido: statusPedido
         };
     };
+
+    removerPedido = async (id) => {
+        try {
+            const data = await dao.removePedido(id);
+            return {
+                dados: data,
+                status: 200,
+            };
+        } catch (error) {
+            return {
+                mensagem: error.message,
+                status: 400,
+            };
+        }
+    };
 }
 
 export default Pedido
