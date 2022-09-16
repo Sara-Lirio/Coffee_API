@@ -114,6 +114,28 @@ class Produtos {
             "adicional": adicional
         }
     }
+
+    removeProdutos = async (idProduto) =>{
+        try {
+            const data = await dao.removeProduto(idProduto)
+            if (data) {
+                return {
+                    "dados": data,
+                    "status": 200
+                }
+            } else {
+                return {
+                    "mensagem": `ID ${idProduto} não encontrado`,
+                    "status": 404
+                }
+            }
+        } catch (error) {
+            return {
+                "dados": error.message,
+                "status": 400
+            }
+        }
+    }
 }
 
 export default Produtos
