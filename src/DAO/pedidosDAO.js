@@ -29,6 +29,20 @@ const daoPedidos = {
         })
     },
 
+    pegaPedidoPeloCPF : (cpfCliente)=> {
+        const PEGA_PEDIDO_CPF = `
+        SELECT * FROM PEDIDOS
+        WHERE cpfCliente = ?
+        `
+        return new Promise((resolve, reject)=> {
+            db.get(PEGA_PEDIDO_CPF, cpfCliente, (error, row)=> {
+                if (error) 
+                    reject(error)
+                else 
+                    resolve(row)
+            })
+        })
+    },
 
 }
 
