@@ -1,7 +1,7 @@
 import express from "express"
 import cors from "cors"
-import routerPedidos from "./routes/routerPedidos"
-import routerProdutos from "./routes/routerProdutos"
+import routerPedidos from "./routes/routerPedidos.js"
+import routerProdutos from "./routes/routerProdutos.js"
 
 const app = express ()
 
