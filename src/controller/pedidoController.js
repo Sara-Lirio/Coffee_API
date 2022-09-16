@@ -150,6 +150,25 @@ const pedidoController = {
           });
         }
       },
+
+      deletaPedido: async (req, res) => {
+        const pedido = req.params.id;
+        try {
+          await PedidoValidacao._validaDeletePedido(
+            pedido,
+            modelPedido.removerPedido,
+          );
+          res.json({
+            msg: 'Pedido deletado com sucesso',
+            erro: false,
+          });
+        } catch (error) {
+          res.status(404).json({
+            msg: error.message,
+            erro: true,
+          });
+        }
+      },
     
 }
 
