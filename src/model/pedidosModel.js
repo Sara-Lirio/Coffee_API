@@ -41,6 +41,28 @@ class Pedido {
         }
     };
 
+    buscarPedidoNome = async (nomeCliente) => {
+        try {
+            const data = await dao.pegaPedidoPeloNome(nomeCliente);
+            if (data) {
+                return {
+                    dados: data,
+                    status: 200,
+                };
+            } else {
+                return {
+                    mensagem: `Pedido de ${nome} não foi encontrado`,
+                    status: 404,
+                };
+            }
+        } catch (error) {
+            return {
+                mensagem: error.message,
+                status: 400,
+            };
+        }
+    };
+
 }
 
 export default Pedido
