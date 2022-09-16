@@ -63,6 +63,28 @@ class Pedido {
         }
     };
 
+    buscarPedidoCPF = async (cpfCliente) => {
+        try {
+            const data = await dao.pegaPedidoPeloCPF(cpfCliente);
+            if (data) {
+                return {
+                    dados: data,
+                    status: 200,
+                };
+            } else {
+                return {
+                    mensagem: `Usuário de CPF ${cpfCliente} não encontrado`,
+                    status: 404,
+                };
+            }
+        } catch (error) {
+            return {
+                mensagem: error.message,
+                status: 400,
+            };
+        }
+    };
+
 }
 
 export default Pedido
