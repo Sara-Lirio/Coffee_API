@@ -1,4 +1,5 @@
-import Pedido from "../model/pedidosModel"
+import Pedido from "../model/pedidosModel.js"
+import PedidoValidacao from "../services/validacaoPedido.js";
 
 const modelPedido = new Pedido ()
 

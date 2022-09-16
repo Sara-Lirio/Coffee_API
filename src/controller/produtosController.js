@@ -1,4 +1,5 @@
-import Produtos from "../model/produtosModel"
+import Produtos from "../model/produtosModel.js"
+import ProdutosValidacao from "../services/validacaoProduto.js";
 
 const modelProdutos = new Produtos()
 
