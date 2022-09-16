@@ -91,6 +91,27 @@ const daoPedidos = {
         })
     },
 
+    atualizarPedido: (id, novoPedido) => {
+        const ATUALIZA_PEDIDO = `
+        UPDATE PEDIDOS 
+        SET dataPedido = ? , nomeCliente = ? , cpfCliente = ?, formaDeEntrega = ? ,
+        valorTotal = ? , statusPagamento = ? , statusPedido = ? 
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject) => {
+            db.run(ATUALIZA_PEDIDO,
+                novoPedido.dataPedido, novoPedido.nomeCliente, novoPedido.cpfCliente, novoPedido.formaDeEntrega,
+                novoPedido.valorTotal, novoPedido.statusPagamento, novoPedido.statusPedido,
+                id,
+                (error) => {
+                    if (error)
+                        reject(error)
+                    else
+                        resolve(novoPedido)
+                })
+        })
+    },
+
 }
 
 export default daoPedidos
