@@ -1,3 +1,5 @@
+import db from "../database/db.js"
+
 const daoPedidos = {
 
     inserePedido: (pedido) => {
