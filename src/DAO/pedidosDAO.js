@@ -112,6 +112,21 @@ const daoPedidos = {
         })
     },
 
+    removePedido: (id) => {
+        const DELETA_PEDIDO = `
+        DELETE FROM PEDIDOS
+        WHERE id = ?
+        `
+        return new Promise((resolve, reject) => {
+            db.run(DELETA_PEDIDO, id, (error, row) => {
+                if (error)
+                    reject(error)
+                else
+                    resolve(row)
+            })
+        })
+    }
+
 }
 
 export default daoPedidos
