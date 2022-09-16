@@ -75,6 +75,45 @@ class Produtos {
             }
         }
     }
+
+    atualizaProduto = async (idProduto, nomeProduto, imagem, descricao, valor, adicional) => {
+        try {
+            const novoDado = this.criaProduto(nomeProduto, imagem, descricao, valor, adicional)
+            const produtoAtual = await this.buscaProdutoId(idProduto)
+            if (produtoAtual) {
+                const produtoAtualizado = {
+                    "nomeProduto": novoDado.nomeProduto || produtoAtual.dados.nomeProduto,
+                    "imagem": novoDado.imagem || produtoAtual.dados.imagem,
+                    "descricao": novoDado.descricao || produtoAtual.dados.descricao,
+                    "valor": novoDado.valor || produtoAtual.dados.valor,
+                    "adicional": novoDado.adicional || produtoAtual.dados.adicional                  
+                }
+                const data = await dao.atualizaProduto(idProduto, produtoAtualizado)
+                return {
+                    "dados": data,
+                    "status": 200
+                }
+            } else {
+                throw new Error("Produto não encontrado")
+            }
+        } catch (error) {
+            return {
+                "mensagem": error.message,
+                "status": 400
+            }
+        }
+    }
+
+    criaProduto = (nomeProduto, imagem, descricao, valor, adicional) => {
+
+        return {
+            "nomeProduto": nomeProduto,
+            "imagem": imagem,
+            "descricao": descricao,
+            "valor": valor,
+            "adicional": adicional
+        }
+    }
 }
 
 export default Produtos
