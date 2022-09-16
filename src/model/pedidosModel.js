@@ -1,7 +1,22 @@
 import dao from '../DAO/pedidosDAO.js'
 class Pedido {
-    constructor(dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido)
 
+    inserirPedido = async (dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido) => {
+        try {
+          const pedido = this.criaPedido(dataPedido, nomeCliente, cpfCliente, formaDeEntrega, valorTotal, statusPagamento, statusPedido);
+          if (pedido == false) throw error;
+          const data = await dao.inserePedido(pedido);
+          return {
+            dados: data,
+            status: 200,  
+          };
+        } catch (error) {
+          return {
+            mensagem: error.message,
+            status: 400,
+          };
+        }
+      };
 
     buscarTodosPedidos = async () => {
         try {
